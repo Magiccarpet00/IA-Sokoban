@@ -1,0 +1,87 @@
+Sokoban IA
+
+COMANDE
+./sokoban lvl(1-9) a||b
+
+	Exemple de commande pour lancer le programme:
+	./sokoban lvl1 a
+
+
+DESCRIPTION FICHIERS
+
++---------+
+|sokoban.c| Fonctionement du jeu global
+|sokoban.h|
++---------+
+
++----+
+|ia.c| Ia qui joue seul et que cherche
+|ia.h| une solution
++----+
+
++------+
+|main.c| Main
++------+
+
+
+FONCTIONEMENT DE L'IA
+Je sauvegarde dans un arbre l'etat du plateau. Cette arbre à 4 feuilles 
+pour les 4 déplacements du personnage A chaque deplacement je crée un 
+nouveau noeud dans l'arbre.
+L'IA parcours tout l'arbre des posibiliters de mouvements jusqu'a trouver la
+position du plateau qui est gagnante.
+L'IA ne crée pas de nouveau noeud dans l'arbre si il est identique à un autre noeud
+de l'arbre.
+L'IA n'explore pas les cas dis "lock"
+
+	OPTIMISATION A:
+	######
+	#$---#
+	#-@-.#
+	######
+	Dans le cadre d'une optimisation A, ce cas est "lock" car il y a une BOX($)
+	dans un coin qui n'est pas sur un GOAL(.). Cette configuration est impossible
+	à finir
+
+	
+	OPTIMISATION B:
+	######
+	#--$-#
+	#-@-.#
+	######
+	Dans le cadre d'une optimisation B, ce cas est "lock" car il y a une BOX($)
+	qui est contre un mur, la caisse ne peut aller que à gauche ou à droite, et
+	et il n'y a pas de goal sur la ligne de la caisse. Cette configuration est
+	impossible à finir
+	
+	
+
+
+
+CALCULE DES TEMPS:
+lvl	a	b
+1	6,39	6,37
+2	>10min	>10min
+3	7,26	7,24
+4	24,26	24,69
+5	3,27	3,28
+6	13,28	13,34
+7	2,62	2,64	
+8	7,76	7,80
+
+Il n'y a pas une grande difference entre les 2 optimisation 
+
+J'avais reussis à trouver une disposition de lvl qui permetait
+de gagner 30 secondes avec l'optimisation b sur 
+l'optimisation a, mais je n'arrive plus à la retrouver.
+
+
+
+AMELIORATION:
+La taille en X et en Y de mon niveau est definis a l'aide d'une variable globale.
+J'ai essayer de la rendre modulable en fonction du niveau choisis mais je n'ai 
+pas reussis. Pour mes tests, tous les niveaux font la même taile. 
+
+Je n'ai pas utiliser la fonction free() a la fin du programme.
+
+Faire un niveau ou l'on vois une difference dans les optimisations.
